@@ -44,7 +44,7 @@ for alert in alerts:
     parsedalerts.append(parsed_alert)
 
 
-file_name = "results_" + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+file_name = "parsed_results_" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".csv"
 with open(file_name, 'w', newline='') as file:
     writer = csv.writer(file)
     information = [data['site'][0]['@name'], "Port = " + data['site'][0]['@port'], "SSL = " + data['site'][0]['@ssl']]
