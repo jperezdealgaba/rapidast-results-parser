@@ -57,6 +57,7 @@ if os.path.isdir(parsed_path):
     os.makedirs(os.path.dirname(parsed_path), exist_ok=True)
     print("Folder created")
 
+print("BEFORE WITH")
 with open(parsed_path, 'x', newline='') as file:
     writer = csv.writer(file)
     information = [data['site'][0]['@name'], "Port = " + data['site'][0]['@port'], "SSL = " + data['site'][0]['@ssl']]
