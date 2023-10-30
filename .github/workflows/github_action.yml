@@ -19,9 +19,7 @@ jobs:
       - name: Parse RapiDast results
         run: |
               curl -LJO https://raw.githubusercontent.com/jperezdealgaba/rapidast-results-parser/main/rapidast_parser.py
-              tree
               python3 rapidast_parser.py --file zap_results/zap_analysis.json
-              tree
             
       - name: Commit changes 
         run: |
