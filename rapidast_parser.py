@@ -1,3 +1,4 @@
+import os
 import argparse
 import json
 import csv
@@ -14,10 +15,16 @@ mapping_values = dict([
 cwe_url = "https://cwe.mitre.org/data/definitions/{{cwe_id}}.html"
 zap_url = "https://www.zaproxy.org/docs/alerts/{{alert_id}}/"
 
+file_name = "parsed_results_" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".csv"
+
 parser = argparse.ArgumentParser(description='Select file to parse.')
 parser.add_argument('--file', dest='file',
                     default="zap-report.json",
                     help='Select rapidast file result to parse (default: zap-report.json)')
+
+parser.add_argument('--output', dest='output_destination',
+                    default= r"results/" + file_name,
+                    help='Select name of results file (the extension should be csv). If no file is specified, a default parsed_results_<date>.csv file will be used. ')
 
 args = parser.parse_args()
 f = open(args.file)
@@ -43,9 +50,11 @@ for alert in alerts:
     parsed_alert = [risk,name,description,solution,cwe,parsed_instances,confidence, zap_alert]
     parsedalerts.append(parsed_alert)
 
+parsed_path = os.path.normpath(args.output_destination)
+if os.path.isdir(parsed_path):
+    os.makedirs(os.path.dirname(parsed_path), exist_ok=True)
 
-file_name = "parsed_results_" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".csv"
-with open(file_name, 'w', newline='') as file:
+with open(parsed_path, 'x', newline='') as file:
     writer = csv.writer(file)
     information = [data['site'][0]['@name'], "Port = " + data['site'][0]['@port'], "SSL = " + data['site'][0]['@ssl']]
     writer.writerow(information)
