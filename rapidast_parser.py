@@ -51,8 +51,10 @@ for alert in alerts:
     parsedalerts.append(parsed_alert)
 
 parsed_path = os.path.normpath(args.output_destination)
+print(parsed_path)
 if os.path.isdir(parsed_path):
     os.makedirs(os.path.dirname(parsed_path), exist_ok=True)
+    print("Folder created")
 
 with open(parsed_path, 'x', newline='') as file:
     writer = csv.writer(file)
