@@ -4,6 +4,10 @@ import json
 import csv
 from datetime import datetime
 
+def check_names(path):
+    if not os.path.exists(os.path.dirname(path)):
+        os.makedirs(os.path.dirname(path))
+
 #Based on https://github.com/zaproxy/zaproxy/blob/296801bb838ae1ceca102a6be5b5ed2e8c29e097/src/org/parosproxy/paros/core/scanner/Alert.java#L62-L65
 mapping_values = dict([
     ('0', 'Informational'),
@@ -51,13 +55,9 @@ for alert in alerts:
     parsedalerts.append(parsed_alert)
 
 parsed_path = os.path.normpath(args.output_destination)
-print(parsed_path)
-if os.path.isdir(parsed_path):
-    print("Folder initiated")
-    os.makedirs(os.path.dirname(parsed_path), exist_ok=True)
-    print("Folder created")
 
-print("BEFORE WITH")
+check_names(parsed_path)
+
 with open(parsed_path, 'x', newline='') as file:
     writer = csv.writer(file)
     information = [data['site'][0]['@name'], "Port = " + data['site'][0]['@port'], "SSL = " + data['site'][0]['@ssl']]
