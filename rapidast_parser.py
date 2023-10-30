@@ -53,6 +53,7 @@ for alert in alerts:
 parsed_path = os.path.normpath(args.output_destination)
 print(parsed_path)
 if os.path.isdir(parsed_path):
+    print("Folder initiated")
     os.makedirs(os.path.dirname(parsed_path), exist_ok=True)
     print("Folder created")
 
