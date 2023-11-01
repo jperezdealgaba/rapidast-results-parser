@@ -1,8 +1,8 @@
 name: rapidast-results-parser
 run-name: Results parser
 on:
-  schedule:
-     - cron: '30 5 * * *'
+  #schedule:
+     #- cron: '30 5 * * *'
   workflow_dispatch:
 jobs:
   parse-results:
